@@ -1,0 +1,7 @@
+.product__image::before{
+content: "MzhzrgfzrgvzgveagfvargvalfrlaEM";
+position: absolute;
+background-color: red;
+color: white;
+font-weight: bold;
+}
