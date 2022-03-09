@@ -1,9 +1,15 @@
 import React from "react";
 import { loadPosts } from "../../lib/load-posts";
 import Item from "../../components/Item";
+import SideBar from "../../components/SideBar";
 
-const Product = ({ product }) => {
-    return <Item product={product} />;
+const Product = ({ product, products }) => {
+    return (
+        <>
+            <SideBar products={products} />
+            <Item product={product} />
+        </>
+    );
 };
 
 // fetching all posts
@@ -23,12 +29,14 @@ export const getStaticProps = async ({ params }) => {
     const res = await fetch(`https://fakestoreapi.com/products/${params.id}`);
     const product = await res.json();
 
+    const products = await loadPosts();
+
     if (!res.ok) {
         throw new Error(
             `Failed to fetch products, received status ${res.status}`
         );
     }
-    return { props: { product }, revalidate: 10 };
+    return { props: { product, products }, revalidate: 10 };
 };
 
 export default Product;
